@@ -20,18 +20,12 @@ namespace api.Controllers
         private readonly DataContext _context;
         private readonly IMapper _mapper;
         private readonly IUserRepository _userRepository;
-        private readonly IEmailService _emailService;
-        public LikeController(DataContext context, IMapper mapper, IUserRepository userRepository,IEmailService emailService)
+        public LikeController(DataContext context, IMapper mapper, IUserRepository userRepository)
         {
             _context = context;
-            _emailService = emailService;
         }
 
-       [HttpGet]
-        public Task<string> Get(){
-        return _emailService.SendEmailAsync("mbamaluhenry8@gmail.com","First C# Mail","Urgent matter");
-        // return _userRepository.GetAuthenticatedUserName();
-        }
+      
 
         [Authorize]
         [HttpPost]

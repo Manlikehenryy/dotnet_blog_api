@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using api.Data;
 using api.Entities;
+using api.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,9 +16,11 @@ namespace api.Controllers
     public class UsersController : ControllerBase
     {
         private readonly DataContext _context;
-        public UsersController(DataContext context)
+        private readonly IEmailService _emailService;
+        public UsersController(DataContext context, IEmailService emailService)
         {
             _context = context;
+            _emailService = emailService;
         }
 
         [HttpGet]
@@ -42,6 +45,12 @@ namespace api.Controllers
                 return Unauthorized("You dont have permission");
             }
 
+        }
+
+        [HttpGet]
+        public Task<string> Get(){
+        return _emailService.SendEmailAsync("email@gmail.com","C# Mail","Urgent matter");
+        // return _userRepository.GetAuthenticatedUserName();
         }
     }
 }
